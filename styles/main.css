@@ -53,10 +53,10 @@ body {
 }
 
 .shape div {
-  border: 1px solid lightgrey;
+  border: 1px solid #d4b49b;
   flex-grow: 1;
-  height: 10%;
-  width: 10%;
+  height: 20px;
+  width: 20px;
 }
 
 .grid-wrapper {
