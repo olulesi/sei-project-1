@@ -74,13 +74,14 @@ function init() {
     removeShape(startPosition)
     const horizontalPosition = startPosition % gridWidth
     const verticalPosition = Math.floor(startPosition / gridWidth)
-
+    console.log(horizontalPosition)
+    console.log(verticalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - 2) startPosition++
+        if (horizontalPosition < gridWidth - 2 && verticalPosition < gridHeight - 3) startPosition++
         break
       case 37: //arrow left
-        if (horizontalPosition > 0) startPosition--
+        if (horizontalPosition > 0 && verticalPosition < gridHeight - 3) startPosition--
         break
       case 38: //arrow up
         if (verticalPosition > 0) startPosition -= gridWidth
