@@ -73,10 +73,10 @@ function init() {
 
     const horizontalPosition = startPosition % gridWidth
     const verticalPosition = Math.floor(startPosition / gridWidth)
-
+    console.log(verticalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - 1) startPosition++
+        if (horizontalPosition < gridWidth - 2) startPosition++
         break
       case 37: //arrow left
         if (horizontalPosition > 0) startPosition--
@@ -85,7 +85,14 @@ function init() {
         if (verticalPosition > 0) startPosition -= gridWidth
         break
       case 40: //arrow down
-        if (verticalPosition < gridHeight - 1) startPosition += gridWidth
+        if (currShape === 1) {
+          if (verticalPosition < gridHeight - 3) {
+            startPosition += gridWidth
+          }
+        }
+        else if (verticalPosition < gridHeight - 2) {
+          startPosition += gridWidth
+        }
         break
       default:
         console.log('INVALID KEY')
