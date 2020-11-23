@@ -9,14 +9,17 @@ function init() {
   // var the width so you can manipulate the size whenever
   const gridWidth = 12
   const gridHeight = gridWidth * 2
-  const cellCount = gridHeight *  gridWidth
+  const cellCount = gridHeight * gridWidth
   const cells = []
   const shapeWidth = 4
-  const shapeCellCount = shapeWidth * shapeWidth 
+  const shapeCellCount = shapeWidth * shapeWidth
   const shapeCells = []
-  let startPosition = 6
+  let startPosition = 5
   const currShape = generateRandomShapeIndex()
-  
+  let timer
+
+  const horizontalPosition = startPosition % gridWidth
+  const verticalPosition = Math.floor(startPosition / gridWidth)
 
   const shapes = [
     {
@@ -33,7 +36,7 @@ function init() {
       position4: 25,
     }
   ]
-  
+
 
   // * Make a grid
   // needs an argument for position
@@ -41,20 +44,20 @@ function init() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.setAttribute('data-index', i)
-      // cell.textContent = i
+      cell.textContent = i
       cells.push(cell)
       grid.appendChild(cell)
     }
-    addShape(startPosition)
+    // addShape(startPosition)
   }
 
   function removeShape(position) {
-    
+
     cells[position].classList.remove(`${shapes[currShape].name}`)
     cells[position + shapes[currShape].position2].classList.remove(`${shapes[currShape].name}`)
     cells[position + shapes[currShape].position3].classList.remove(`${shapes[currShape].name}`)
     cells[position + shapes[currShape].position4].classList.remove(`${shapes[currShape].name}`)
-    
+
   }
 
   function addShape(position) {
@@ -71,9 +74,6 @@ function init() {
 
     removeShape(startPosition)
 
-    const horizontalPosition = startPosition % gridWidth
-    const verticalPosition = Math.floor(startPosition / gridWidth)
-    console.log(verticalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
         if (horizontalPosition < gridWidth - 2) startPosition++
@@ -89,17 +89,14 @@ function init() {
           if (verticalPosition < gridHeight - 3) {
             startPosition += gridWidth
           }
-        }
-        else if (verticalPosition < gridHeight - 2) {
+        } else if (verticalPosition < gridHeight - 2) {
           startPosition += gridWidth
         }
         break
       default:
         console.log('INVALID KEY')
     }
-
     addShape(startPosition)
-    
   }
 
   function nextShapeGrid() {
@@ -112,8 +109,22 @@ function init() {
     }
   }
 
+  function nullShape() {
+    console.log('game is over')
+    clearInterval(timer)
+  }
 
   function startGame() {
+    addShape(startPosition)
+    // timer = setInterval(() => {
+
+    //   console.log(startPosition)
+    //   console.log(gridHeight)
+    //   removeShape(startPosition)
+    //   startPosition += gridWidth
+    //   addShape(startPosition)
+
+    // }, 500)
     document.addEventListener('keyup', handleKeyUp)
   }
 
@@ -121,7 +132,7 @@ function init() {
   createGrid()
   nextShapeGrid()
   start.addEventListener('click', startGame)
-  
+
 
 }
 
