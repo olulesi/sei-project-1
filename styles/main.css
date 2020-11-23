@@ -24,6 +24,7 @@ body {
 }
 
 .sideScore {
+  margin-top: 10px;
   width: 33vh;
   height: 100vh;
   display: flex;
@@ -35,7 +36,7 @@ body {
 }
 
 .shape-wrapper {
-  margin-top: 25px;
+  margin-top: 20px;
   display: flex;
   justify-content: top;
   align-items: center;
@@ -43,7 +44,6 @@ body {
 
 .shape{
   align-items: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
   height: 100%;
@@ -87,3 +87,20 @@ body {
   height: 20px;
   width: 20px;
 }
+
+.lShape {
+  background-color:#d8473e;
+  border: 1px solid #2f1820;
+}
+
+.boxShape {
+  background-color:#e2b911;
+  border: 1px solid #2f1820;
+}
+
+.Zshape {
+  background-color:#98aa2c;
+  border: 1px solid #2f1820;
+}
+
+
