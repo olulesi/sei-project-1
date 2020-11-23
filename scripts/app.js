@@ -18,8 +18,7 @@ function init() {
   const currShape = generateRandomShapeIndex()
   let timer
 
-  const horizontalPosition = startPosition % gridWidth
-  const verticalPosition = Math.floor(startPosition / gridWidth)
+  
 
   const shapes = [
     {
@@ -73,6 +72,8 @@ function init() {
   function handleKeyUp(event) {
 
     removeShape(startPosition)
+    const horizontalPosition = startPosition % gridWidth
+    const verticalPosition = Math.floor(startPosition / gridWidth)
 
     switch (event.keyCode) {
       case 39: //arrow right
