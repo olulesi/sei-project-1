@@ -78,8 +78,6 @@ function init() {
     removeShape(startPosition)
     const horizontalPosition = startPosition % gridWidth
     const verticalPosition = Math.floor(startPosition / gridWidth)
-    console.log(horizontalPosition)
-    console.log(verticalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
         if (horizontalPosition < gridWidth - 2 && verticalPosition < gridHeight - 3) startPosition++
@@ -88,7 +86,7 @@ function init() {
         if (horizontalPosition > 0 && verticalPosition < gridHeight - 3) startPosition--
         break
       case 38: //arrow up
-        if (verticalPosition > 0) startPosition -= gridWidth
+        // if (verticalPosition > 0) startPosition -= gridWidth
         break
       case 40: //arrow down
         if (currShape === 1) {
@@ -120,12 +118,18 @@ function init() {
     clearInterval(timer)
   }
 
+  function bottomRowChecker (index) {
+    
+  }
+
   function startGame() {
     addShape(startPosition)
+    
     timer = setInterval(() => {
-      console.log(bottomRow[1].dataset.index)
-      console.log(startPosition)
-      console.log(gridHeight)
+      if (startPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
+        nullShape()
+        return
+      }
       removeShape(startPosition)
       startPosition += gridWidth
       addShape(startPosition)
