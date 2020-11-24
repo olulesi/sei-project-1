@@ -26,6 +26,7 @@ function init() {
       position2: 1,
       position3: 12,
       position4: 13,
+      shapeWidth: 2
 
     },
     {
@@ -33,6 +34,7 @@ function init() {
       position2: 12,
       position3: 13,
       position4: 25,
+      shapeWidth: 2
     }
   ]
 
@@ -78,13 +80,13 @@ function init() {
     removeShape(startPosition)
     const horizontalPosition = startPosition % gridWidth
     const verticalPosition = Math.floor(startPosition / gridWidth)
-    console.log(verticalPosition)
+    console.log(horizontalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - 2 && verticalPosition < gridHeight - 3) startPosition++
+        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) startPosition++
         break
       case 37: //arrow left
-        if (horizontalPosition > 0 && verticalPosition < gridHeight - 3) startPosition--
+        if (horizontalPosition > 0) startPosition--
         break
       case 32: //spaceBar
         if (verticalPosition > 0) startPosition += gridHeight * (gridWidth - 2)
@@ -146,7 +148,7 @@ function init() {
       addShape(startPosition)
 
     }, 500)
-    newShape(startPosition)
+    // newShape(startPosition)
     document.addEventListener('keyup', handleKeyUp)
   }
 
