@@ -17,7 +17,7 @@ function init() {
   let startPosition = 5
   const currShape = generateRandomShapeIndex()
   let timer
-
+  const bottomRow = []
   
 
   const shapes = [
@@ -45,6 +45,10 @@ function init() {
       cell.setAttribute('data-index', i)
       cell.textContent = i
       cells.push(cell)
+      // console.log(bottomRow[2].dataset.index)
+      if (i >= cellCount - gridWidth) {
+        bottomRow.push(cell)
+      }
       grid.appendChild(cell)
     }
     // addShape(startPosition)
@@ -118,15 +122,15 @@ function init() {
 
   function startGame() {
     addShape(startPosition)
-    // timer = setInterval(() => {
+    timer = setInterval(() => {
+      console.log(bottomRow[1].dataset.index)
+      console.log(startPosition)
+      console.log(gridHeight)
+      removeShape(startPosition)
+      startPosition += gridWidth
+      addShape(startPosition)
 
-    //   console.log(startPosition)
-    //   console.log(gridHeight)
-    //   removeShape(startPosition)
-    //   startPosition += gridWidth
-    //   addShape(startPosition)
-
-    // }, 500)
+    }, 500)
     document.addEventListener('keyup', handleKeyUp)
   }
 
