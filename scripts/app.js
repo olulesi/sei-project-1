@@ -16,9 +16,8 @@ function init() {
   const shapeCells = []
   let currPosition = 5
   let currShape = generateRandomShapeIndex()
-  let timer
   const bottomRow = []
-  const filledCells = []
+  let timer 
   
 
   const shapes = [
@@ -42,10 +41,6 @@ function init() {
 
     }
   ]
-
-  function hasPikachu(element) {
-    return element.classList.contains('pika')
-  }
 
   // * Make a grid
   // needs an argument for position
@@ -124,8 +119,50 @@ function init() {
       shapeCells.push(nextShapeCell)
     }
   }
+  
+  function nullShape() {
+    console.log('game is over BIATCH')
+    clearInterval(timer)
+  }
+
+  function storeShape(position) {
+    // push shape into cells array with its classList 
+    cells[position].classList.add(`${shapes[currShape].name}`)
+    cells[position + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
+    cells[position + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
+    cells[position + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
+    //check for complete lines 
+
+    // add another shape from the start position
+
+  }
+
+  
+
+
+  function completedLines() {
+
+  }
+
+  function tryMove(position, change) {
+    const newPosition = position + change
+    const newPosition2 = newPosition + shapes[currShape].position2 
+    const newPosition3 = newPosition + shapes[currShape].position3 
+    const newPosition4 = newPosition + shapes[currShape].position4 
+    if (cells[newPosition.classList.contains('')] && cells[newPosition2.classList.contains('')] && cells[newPosition3.classList.contains('')] && cells[newPosition4.classList.contains('')]) {
+      currPosition === newPosition
+    } else if (change === gridWidth) {
+      storeShape(currPosition)
+    } else if (change === 0) {
+      nullShape()
+    }
+    // if 5 is in filled array 
+    // if new position cells are empty or not current shape class list
+  }
+
   function newShape(currPosition) {
-    currPosition = 5
+    tryMove(currPosition, 0)
+
     currShape = generateRandomShapeIndex()
     timer = setInterval(() => {
       if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
@@ -136,35 +173,6 @@ function init() {
       currPosition += gridWidth
       addShape(currPosition)
     }, 500)
-  }
-  function nullShape() {
-    console.log('game is over BIATCH')
-    clearInterval(timer)
-  }
-
-  function storeShape() {
-    // push shape into cells array with its classList 
-    cells[position].classList.add(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
-
-  }
-
-
-  function tryMove(position, change) {
-    const newPosition = position + change
-    const newPosition2 = newPosition + shapes[currShape].position2 
-    const newPosition3 = newPosition + shapes[currShape].position3 
-    const newPosition4 = newPosition + shapes[currShape].position4 
-    if (cells[newPosition.classList.contains('')] && cells[newPosition2.classList.contains('')] && cells[newPosition3.classList.contains('')] && cells[newPosition4.classList.contains('')]) {
-      currPosition === newPosition
-    } else if (change === gridWidth) {
-      storeShape()
-    }
-    // if 5 is in filled array 
-    // if new position cells are empty or not current shape class list
-
   }
 
   function startGame() {
