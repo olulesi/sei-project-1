@@ -15,7 +15,7 @@ function init() {
   const shapeCellCount = shapeWidth * shapeWidth
   const shapeCells = []
   let startPosition = 5
-  const currShape = generateRandomShapeIndex()
+  let currShape = generateRandomShapeIndex()
   let timer
   const bottomRow = []
   
@@ -78,6 +78,7 @@ function init() {
     removeShape(startPosition)
     const horizontalPosition = startPosition % gridWidth
     const verticalPosition = Math.floor(startPosition / gridWidth)
+    console.log(verticalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
         if (horizontalPosition < gridWidth - 2 && verticalPosition < gridHeight - 3) startPosition++
@@ -85,8 +86,8 @@ function init() {
       case 37: //arrow left
         if (horizontalPosition > 0 && verticalPosition < gridHeight - 3) startPosition--
         break
-      case 38: //arrow up
-        // if (verticalPosition > 0) startPosition -= gridWidth
+      case 32: //spaceBar
+        if (verticalPosition > 0) startPosition += gridHeight * (gridWidth - 2)
         break
       case 40: //arrow down
         if (currShape === 1) {
@@ -112,14 +113,24 @@ function init() {
       shapeCells.push(nextShapeCell)
     }
   }
+  function newShape(startPosition) {
+    startPosition = 5
+    currShape = generateRandomShapeIndex()
+    addShape(startPosition)
+    timer = setInterval(() => {
+      if (startPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
+        nullShape()
+        return
+      }
+      removeShape(startPosition)
+      startPosition += gridWidth
+      addShape(startPosition)
 
-  function nullShape() {
-    console.log('game is over')
-    clearInterval(timer)
+    }, 500)
   }
-
-  function bottomRowChecker (index) {
-    
+  function nullShape() {
+    console.log('game is over BIATCH')
+    clearInterval(timer)
   }
 
   function startGame() {
@@ -135,6 +146,7 @@ function init() {
       addShape(startPosition)
 
     }, 500)
+    newShape(startPosition)
     document.addEventListener('keyup', handleKeyUp)
   }
 
