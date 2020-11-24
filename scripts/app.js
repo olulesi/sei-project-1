@@ -14,10 +14,11 @@ function init() {
   const shapeWidth = 4
   const shapeCellCount = shapeWidth * shapeWidth
   const shapeCells = []
-  let startPosition = 5
+  let currPosition = 5
   let currShape = generateRandomShapeIndex()
   let timer
   const bottomRow = []
+  const filledCells = []
   
 
   const shapes = [
@@ -26,7 +27,9 @@ function init() {
       position2: 1,
       position3: 12,
       position4: 13,
-      shapeWidth: 2
+      shapeWidth: 2,
+      shapeHeight: 3
+
 
     },
     {
@@ -34,10 +37,15 @@ function init() {
       position2: 12,
       position3: 13,
       position4: 25,
-      shapeWidth: 2
+      shapeWidth: 2,
+      shapeHeight: 3
+
     }
   ]
 
+  function hasPikachu(element) {
+    return element.classList.contains('pika')
+  }
 
   // * Make a grid
   // needs an argument for position
@@ -45,6 +53,7 @@ function init() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.setAttribute('data-index', i)
+      cell.setAttribute('color', '')
       cell.textContent = i
       cells.push(cell)
       // console.log(bottomRow[2].dataset.index)
@@ -77,33 +86,33 @@ function init() {
 
   function handleKeyUp(event) {
 
-    removeShape(startPosition)
-    const horizontalPosition = startPosition % gridWidth
-    const verticalPosition = Math.floor(startPosition / gridWidth)
+    removeShape(currPosition)
+    const horizontalPosition = currPosition % gridWidth
+    const verticalPosition = Math.floor(currPosition / gridWidth)
     console.log(horizontalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) startPosition++
+        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) currPosition++
         break
       case 37: //arrow left
-        if (horizontalPosition > 0) startPosition--
+        if (horizontalPosition > 0) currPosition--
         break
       case 32: //spaceBar
-        if (verticalPosition > 0) startPosition += gridHeight * (gridWidth - 2)
+        if (verticalPosition > 0) currPosition += gridHeight * (gridWidth - 2)
         break
       case 40: //arrow down
         if (currShape === 1) {
           if (verticalPosition < gridHeight - 3) {
-            startPosition += gridWidth
+            currPosition += gridWidth
           }
         } else if (verticalPosition < gridHeight - 2) {
-          startPosition += gridWidth
+          currPosition += gridWidth
         }
         break
       default:
         console.log('INVALID KEY')
     }
-    addShape(startPosition)
+    addShape(currPosition)
   }
 
   function nextShapeGrid() {
@@ -115,19 +124,17 @@ function init() {
       shapeCells.push(nextShapeCell)
     }
   }
-  function newShape(startPosition) {
-    startPosition = 5
+  function newShape(currPosition) {
+    currPosition = 5
     currShape = generateRandomShapeIndex()
-    addShape(startPosition)
     timer = setInterval(() => {
-      if (startPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
+      if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
         nullShape()
         return
       }
-      removeShape(startPosition)
-      startPosition += gridWidth
-      addShape(startPosition)
-
+      removeShape(currPosition)
+      currPosition += gridWidth
+      addShape(currPosition)
     }, 500)
   }
   function nullShape() {
@@ -135,17 +142,42 @@ function init() {
     clearInterval(timer)
   }
 
+  function storeShape() {
+    // push shape into cells array with its classList 
+    cells[position].classList.add(`${shapes[currShape].name}`)
+    cells[position + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
+    cells[position + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
+    cells[position + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
+
+  }
+
+
+  function tryMove(position, change) {
+    const newPosition = position + change
+    const newPosition2 = newPosition + shapes[currShape].position2 
+    const newPosition3 = newPosition + shapes[currShape].position3 
+    const newPosition4 = newPosition + shapes[currShape].position4 
+    if (cells[newPosition.classList.contains('')] && cells[newPosition2.classList.contains('')] && cells[newPosition3.classList.contains('')] && cells[newPosition4.classList.contains('')]) {
+      currPosition === newPosition
+    } else if (change === gridWidth) {
+      storeShape()
+    }
+    // if 5 is in filled array 
+    // if new position cells are empty or not current shape class list
+
+  }
+
   function startGame() {
-    addShape(startPosition)
+    addShape(currPosition)
     
     timer = setInterval(() => {
-      if (startPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
+      if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
         nullShape()
         return
       }
-      removeShape(startPosition)
-      startPosition += gridWidth
-      addShape(startPosition)
+      removeShape(currPosition)
+      tryMove(currPosition, gridWidth)
+      addShape(currPosition)
 
     }, 500)
     // newShape(startPosition)
