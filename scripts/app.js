@@ -78,6 +78,7 @@ function init() {
     cells[position + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
     cells[position + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
     cells[position + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
+    // console.log(cells[position].classList.value === '')
   }
   function generateRandomShapeIndex() {
     return Math.floor(Math.random() * 2)
@@ -154,20 +155,23 @@ function init() {
     // move down 
   }
 
-  function tryMove(currPosition) {
-    const newPosition = currPosition
+  function tryMove(change) {
+    const newPosition = currPosition + change
     const newPosition2 = newPosition + shapes[currShape].position2
     const newPosition3 = newPosition + shapes[currShape].position3
     const newPosition4 = newPosition + shapes[currShape].position4
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
       addShape(currPosition)
-    } 
+    } else {
+      nullShape()
+      return
+    }
     // else if (change === gridWidth) {
-    //   storeShape(currPosition)
-    // } else if (change === 0) {}
-    nullShape()
-    return
+    //   storeShape()
+    // } else if (change === 0) {
+    
+    // }
 
     // if 5 is in filled array 
     // if new position cells are empty or not current shape class list
@@ -176,25 +180,25 @@ function init() {
   function newShape() {
     currShape = generateRandomShapeIndex()
     currPosition = 5
-    tryMove(currPosition, 0)
+    tryMove(0)
     addShape(currPosition)
   }
 
   function startGame() {
 
     // newShape()
-    addShape(currPosition)
+    // addShape(currPosition)
     timer = setInterval(() => {
       // addShape(currPosition)
       if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
         nullShape()
         return
       }
-      
+
       removeShape(currPosition)
-      currPosition += gridWidth
-      addShape(currPosition)
-      // tryMove(currPosition, gridWidth)
+      // addShape(currPosition)
+      tryMove(gridWidth)
+      console.log(currPosition)
 
     }, 500)
     document.addEventListener('keyup', handleKeyUp)
