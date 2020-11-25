@@ -92,10 +92,10 @@ function init() {
     console.log(horizontalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth && !(currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index)) currPosition++
+        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) tryMove(1)
         break
       case 37: //arrow left
-        if (horizontalPosition > 0 && !(currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index)) currPosition--
+        if (horizontalPosition > 0) tryMove(-1)
         break
       case 32: //spaceBar
         // if try move succesfull remove
@@ -124,12 +124,6 @@ function init() {
       tetrisShape.appendChild(nextShapeCell)
       shapeCells.push(nextShapeCell)
     }
-  }
-
-  function nullShape() {
-    console.log('ends')
-    
-
   }
 
   function storeShape() {
@@ -166,8 +160,6 @@ function init() {
       addShape()
     } else if (change === 0){
       currPosition = -1
-      
-      nullShape()
     } else if (change === gridWidth) {
       storeShape()
     }
@@ -188,8 +180,6 @@ function init() {
   }
 
   function endGame() {
-    console.log('end ffs')
-    clearInterval(timer)
   }
 
   function startGame() {
@@ -197,21 +187,19 @@ function init() {
     newShape()
     // addShape(currPosition)
     timer = setInterval(() => {
+      document.addEventListener('keyup', handleKeyUp)
       // addShape(currPosition)
       if (currPosition + shapes[currShape].position4 >= bottomRow[0].dataset.index) {
-        startGame()
-        return
+        storeShape()
       } else if (currPosition === -1) {
-        endGame()
         return
       }
       
       removeShape()
       tryMove(gridWidth)
       console.log(currPosition)
-    }, 100)
+    }, 80)
     console.log('im outside')
-    document.addEventListener('keyup', handleKeyUp)
   }
 
 
