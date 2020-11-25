@@ -127,8 +127,9 @@ function init() {
   }
 
   function nullShape() {
-    console.log('shape stops here')
-    clearInterval(timer)
+    console.log('ends')
+    
+
   }
 
   function storeShape() {
@@ -163,11 +164,12 @@ function init() {
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
       addShape()
+    } else if (change === 0){
+      currPosition = -1
+      
+      nullShape()
     } else if (change === gridWidth) {
       storeShape()
-    } else {
-      nullShape()
-      return
     }
     // else if (change === gridWidth) {
     //   storeShape()
@@ -183,7 +185,11 @@ function init() {
     currShape = generateRandomShapeIndex()
     currPosition = 5
     tryMove(0)
-    addShape(currPosition)
+  }
+
+  function endGame() {
+    console.log('end ffs')
+    clearInterval(timer)
   }
 
   function startGame() {
@@ -192,16 +198,19 @@ function init() {
     // addShape(currPosition)
     timer = setInterval(() => {
       // addShape(currPosition)
-      if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
+      if (currPosition + shapes[currShape].position4 >= bottomRow[0].dataset.index) {
         startGame()
         return
+      } else if (currPosition === -1) {
+        endGame()
+        return
       }
+      
       removeShape()
-      // addShape(currPosition)
       tryMove(gridWidth)
       console.log(currPosition)
-
-    }, 500)
+    }, 100)
+    console.log('im outside')
     document.addEventListener('keyup', handleKeyUp)
   }
 
