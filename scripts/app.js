@@ -99,6 +99,9 @@ function init() {
         break
       case 32: //spaceBar
         // if try move succesfull remove
+        while (currPosition > 5 ) {
+          tryMove(gridWidth)
+        }
         if (verticalPosition > 0) currPosition += gridHeight * (gridWidth - 2)
         break
       case 40: //arrow down
@@ -113,7 +116,7 @@ function init() {
       default:
         console.log('INVALID KEY')
     }
-    addShape()
+    // addShape()
   }
 
   function nextShapeGrid() {
@@ -155,6 +158,7 @@ function init() {
     const newPosition2 = newPosition + shapes[currShape].position2
     const newPosition3 = newPosition + shapes[currShape].position3
     const newPosition4 = newPosition + shapes[currShape].position4
+    removeShape()
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
       addShape()
@@ -195,10 +199,10 @@ function init() {
         return
       }
       
-      removeShape()
+      
       tryMove(gridWidth)
       console.log(currPosition)
-    }, 80)
+    }, 100)
     console.log('im outside')
   }
 
