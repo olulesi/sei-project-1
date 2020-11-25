@@ -86,7 +86,6 @@ function init() {
 
   function handleKeyUp(event) {
 
-    removeShape()
     const horizontalPosition = currPosition % gridWidth
     const verticalPosition = Math.floor(currPosition / gridWidth)
     console.log(horizontalPosition)
@@ -102,7 +101,6 @@ function init() {
         while (currPosition > 5 ) {
           tryMove(gridWidth)
         }
-        if (verticalPosition > 0) currPosition += gridHeight * (gridWidth - 2)
         break
       case 40: //arrow down
         if (currShape === 1) {
@@ -129,15 +127,7 @@ function init() {
     }
   }
 
-  function storeShape() {
-    // push shape into cells array with its classList 
-    addShape()
-    //check for complete lines 
-
-    // add another shape from the start position
-    newShape()
-  }
-
+  
 
 
 
@@ -159,6 +149,10 @@ function init() {
     const newPosition3 = newPosition + shapes[currShape].position3
     const newPosition4 = newPosition + shapes[currShape].position4
     removeShape()
+    if (newPosition4 > bottomRow[11].dataset.index){
+      storeShape()
+      return
+    }
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
       addShape()
@@ -166,7 +160,7 @@ function init() {
       currPosition = -1
     } else if (change === gridWidth) {
       storeShape()
-    }
+    } 
     // else if (change === gridWidth) {
     //   storeShape()
     // } else if (change === 0) {
@@ -185,24 +179,29 @@ function init() {
 
   function endGame() {
   }
+  function storeShape() {
+    // push shape into cells array with its classList 
+    addShape()
+    //check for complete lines 
+
+    // add another shape from the start position
+    newShape()
+  }
 
   function startGame() {
 
     newShape()
-    // addShape(currPosition)
     timer = setInterval(() => {
       document.addEventListener('keyup', handleKeyUp)
-      // addShape(currPosition)
       if (currPosition + shapes[currShape].position4 >= bottomRow[0].dataset.index) {
         storeShape()
       } else if (currPosition === -1) {
         return
       }
       
-      
       tryMove(gridWidth)
       console.log(currPosition)
-    }, 100)
+    }, 250)
     console.log('im outside')
   }
 
