@@ -64,20 +64,20 @@ function init() {
     // addShape(startPosition)
   }
 
-  function removeShape(position) {
+  function removeShape() {
 
-    cells[position].classList.remove(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position2].classList.remove(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position3].classList.remove(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position4].classList.remove(`${shapes[currShape].name}`)
+    cells[currPosition].classList.remove(`${shapes[currShape].name}`)
+    cells[currPosition + shapes[currShape].position2].classList.remove(`${shapes[currShape].name}`)
+    cells[currPosition + shapes[currShape].position3].classList.remove(`${shapes[currShape].name}`)
+    cells[currPosition + shapes[currShape].position4].classList.remove(`${shapes[currShape].name}`)
 
   }
 
-  function addShape(position) {
-    cells[position].classList.add(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
-    cells[position + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
+  function addShape() {
+    cells[currPosition].classList.add(`${shapes[currShape].name}`)
+    cells[currPosition + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
+    cells[currPosition + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
+    cells[currPosition + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
     // console.log(cells[position].classList.value === '')
   }
   function generateRandomShapeIndex() {
@@ -86,7 +86,7 @@ function init() {
 
   function handleKeyUp(event) {
 
-    removeShape(currPosition)
+    removeShape()
     const horizontalPosition = currPosition % gridWidth
     const verticalPosition = Math.floor(currPosition / gridWidth)
     console.log(horizontalPosition)
@@ -113,7 +113,7 @@ function init() {
       default:
         console.log('INVALID KEY')
     }
-    addShape(currPosition)
+    addShape()
   }
 
   function nextShapeGrid() {
@@ -131,9 +131,9 @@ function init() {
     clearInterval(timer)
   }
 
-  function storeShape(currPosition) {
+  function storeShape() {
     // push shape into cells array with its classList 
-    addShape(currPosition)
+    addShape()
     //check for complete lines 
 
     // add another shape from the start position
@@ -162,7 +162,9 @@ function init() {
     const newPosition4 = newPosition + shapes[currShape].position4
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
-      addShape(currPosition)
+      addShape()
+    } else if (change === gridWidth) {
+      storeShape()
     } else {
       nullShape()
       return
@@ -186,16 +188,15 @@ function init() {
 
   function startGame() {
 
-    // newShape()
+    newShape()
     // addShape(currPosition)
     timer = setInterval(() => {
       // addShape(currPosition)
       if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
-        nullShape()
+        startGame()
         return
       }
-
-      removeShape(currPosition)
+      removeShape()
       // addShape(currPosition)
       tryMove(gridWidth)
       console.log(currPosition)
