@@ -19,7 +19,7 @@ function init() {
   const bottomRow = []
   let timer
 
-  
+
 
 
   const shapes = [
@@ -47,7 +47,7 @@ function init() {
   // * Make a grid
   // needs an argument for position
   function createGrid() {
-    
+
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.setAttribute('data-index', i)
@@ -60,7 +60,7 @@ function init() {
       }
       grid.appendChild(cell)
     }
-    
+
     // addShape(startPosition)
   }
 
@@ -91,13 +91,13 @@ function init() {
     console.log(horizontalPosition)
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) currPosition++
+        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth && !(currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index)) currPosition++
         break
       case 37: //arrow left
-        if (horizontalPosition > 0) currPosition--
+        if (horizontalPosition > 0 && !(currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index)) currPosition--
         break
       case 32: //spaceBar
-      // if try move succesfull remove
+        // if try move succesfull remove
         if (verticalPosition > 0) currPosition += gridHeight * (gridWidth - 2)
         break
       case 40: //arrow down
@@ -126,7 +126,7 @@ function init() {
   }
 
   function nullShape() {
-    console.log('game is over BIATCH')
+    console.log('shape stops here')
     clearInterval(timer)
   }
 
@@ -145,29 +145,29 @@ function init() {
   function completedLines() {
     // r and c = 1
     // for row r in grid height 
-      // for cell c in grid width
-        // cells posiiton  = (r-1) * gridwidth + (c-1)
-        // if cell position = empty
-          //break
-        // else if c === gridwidth
-          // clear row
-          // move down 
+    // for cell c in grid width
+    // cells posiiton  = (r-1) * gridwidth + (c-1)
+    // if cell position = empty
+    //break
+    // else if c === gridwidth
+    // clear row
+    // move down 
   }
 
-  function tryMove(currPosition, change) {
-    const newPosition = currPosition + change
+  function tryMove(currPosition) {
+    const newPosition = currPosition
     const newPosition2 = newPosition + shapes[currShape].position2
     const newPosition3 = newPosition + shapes[currShape].position3
     const newPosition4 = newPosition + shapes[currShape].position4
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
       addShape(currPosition)
-    } else if (change === gridWidth) {
-      storeShape(currPosition)
-    } else if (change === 0) {
-      nullShape()
-      return
-    }
+    } 
+    // else if (change === gridWidth) {
+    //   storeShape(currPosition)
+    // } else if (change === 0) {}
+    nullShape()
+    return
 
     // if 5 is in filled array 
     // if new position cells are empty or not current shape class list
@@ -181,11 +181,20 @@ function init() {
   }
 
   function startGame() {
-    
-    newShape()
+
+    // newShape()
+    addShape(currPosition)
     timer = setInterval(() => {
+      // addShape(currPosition)
+      if (currPosition + shapes[currShape].position4 > bottomRow[0].dataset.index) {
+        nullShape()
+        return
+      }
+      
       removeShape(currPosition)
-      tryMove(currPosition, gridWidth)
+      currPosition += gridWidth
+      addShape(currPosition)
+      // tryMove(currPosition, gridWidth)
 
     }, 500)
     document.addEventListener('keyup', handleKeyUp)
