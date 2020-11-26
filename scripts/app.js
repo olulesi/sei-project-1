@@ -18,30 +18,42 @@ function init() {
   let currShape = 0
   const bottomRow = []
   let timer
-
-
-
-
-  const shapes = [
+  let shapeCounter = 0
+  const boxShapes = [
     {
       name: 'boxShape',
       position2: 1,
       position3: 12,
       position4: 13,
       shapeWidth: 2,
-      shapeHeight: 3
-
-
-    },
+      shapeHeight: 2 
+    }
+  ]
+  const zShapes = [
     {
+      rotation: 1,
       name: 'Zshape',
       position2: 12,
       position3: 13,
       position4: 25,
       shapeWidth: 2,
-      shapeHeight: 3
-
+      shapeHeight: 3,
+    },
+    {
+      rotation: 2,
+      name: 'Zshape',
+      position2: 1,
+      position3: 11,
+      position4: 12,
+      shapeWidth: 3,
+      shapeHeight: 2,
     }
+  ]
+
+
+
+  const shapes = [ boxShapes, zShapes]
+    
   ]
 
   // * Make a grid
@@ -89,6 +101,7 @@ function init() {
     const horizontalPosition = currPosition % gridWidth
     const verticalPosition = Math.floor(currPosition / gridWidth)
     console.log(horizontalPosition)
+    const shapeNumber = shapeCounter
     switch (event.keyCode) {
       case 39: //arrow right
         if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) tryMove(1)
@@ -98,7 +111,8 @@ function init() {
         break
       case 32: //spaceBar
         // if try move succesfull remove
-        while (currPosition > 5 ) {
+
+        while (shapeCounter === shapeNumber) {
           tryMove(gridWidth)
         }
         break
@@ -127,7 +141,7 @@ function init() {
     }
   }
 
-  
+
 
 
 
@@ -149,22 +163,23 @@ function init() {
     const newPosition3 = newPosition + shapes[currShape].position3
     const newPosition4 = newPosition + shapes[currShape].position4
     removeShape()
-    if (newPosition4 > bottomRow[11].dataset.index){
+    if (currPosition + shapes[currShape].position4 >= bottomRow[0].dataset.index) {
       storeShape()
       return
     }
     if (cells[newPosition].classList.value === '' && cells[newPosition2].classList.value === '' && cells[newPosition3].classList.value === '' && cells[newPosition4].classList.value === '') {
       currPosition = newPosition
       addShape()
-    } else if (change === 0){
+    } else if (change === 0) {
       currPosition = -1
+      console.log('game end')
     } else if (change === gridWidth) {
       storeShape()
-    } 
+    }
     // else if (change === gridWidth) {
     //   storeShape()
     // } else if (change === 0) {
-    
+
     // }
 
     // if 5 is in filled array 
@@ -175,6 +190,8 @@ function init() {
     currShape = generateRandomShapeIndex()
     currPosition = 5
     tryMove(0)
+    shapeCounter++
+    console.log('newShape' + shapeCounter)
   }
 
   function endGame() {
@@ -183,7 +200,6 @@ function init() {
     // push shape into cells array with its classList 
     addShape()
     //check for complete lines 
-
     // add another shape from the start position
     newShape()
   }
@@ -193,12 +209,10 @@ function init() {
     newShape()
     timer = setInterval(() => {
       document.addEventListener('keyup', handleKeyUp)
-      if (currPosition + shapes[currShape].position4 >= bottomRow[0].dataset.index) {
-        storeShape()
-      } else if (currPosition === -1) {
+      if (currPosition === -1) {
         return
       }
-      
+
       tryMove(gridWidth)
       console.log(currPosition)
     }, 250)
