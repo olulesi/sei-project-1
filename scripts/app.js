@@ -122,6 +122,45 @@ function init() {
         shapeWidth: 1,
         shapeHeight: 2,
       }
+    ],
+    [
+      {
+        rotation: 1,
+        name: 'Lshape',
+        position2: 1,
+        position3: 2,
+        position4: 12,
+        shapeWidth: 3,
+        shapeHeight: 2,
+        
+      },
+      {
+        rotation: 2,
+        name: 'Lshape',
+        position2: 1,
+        position3: 13,
+        position4: 25,
+        shapeWidth: 2,
+        shapeHeight: 3,
+      },
+      {
+        rotation: 3,
+        name: 'Lshape',
+        position2: 10,
+        position3: 11,
+        position4: 12,
+        shapeWidth: 1,
+        shapeHeight: 1,
+      },
+      {
+        rotation: 4,
+        name: 'Lshape',
+        position2: 12,
+        position3: 24,
+        position4: 25,
+        shapeWidth: 2,
+        shapeHeight: 3,
+      }
     ]
   ]
 
@@ -299,7 +338,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = 3
+    currShape = 4
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
