@@ -16,44 +16,46 @@ function init() {
   const shapeCells = []
   let currPosition = 5
   let currShape = 0
+  let currRotation = 0
   const bottomRow = []
   let timer
   let shapeCounter = 0
-  const boxShapes = [
-    {
-      name: 'boxShape',
-      position2: 1,
-      position3: 12,
-      position4: 13,
-      shapeWidth: 2,
-      shapeHeight: 2 
-    }
+
+
+
+  const shapes = [
+    [
+      {
+        name: 'boxShape',
+        position2: 1,
+        position3: 12,
+        position4: 13,
+        shapeWidth: 2,
+        shapeHeight: 2
+      }
+    ],
+    [
+      {
+        rotation: 1,
+        name: 'Zshape',
+        position2: 12,
+        position3: 13,
+        position4: 25,
+        shapeWidth: 2,
+        shapeHeight: 3,
+      },
+      {
+        rotation: 2,
+        name: 'Zshape',
+        position2: 1,
+        position3: 11,
+        position4: 12,
+        shapeWidth: 3,
+        shapeHeight: 2,
+      }
+    ]
   ]
-  const zShapes = [
-    {
-      rotation: 1,
-      name: 'Zshape',
-      position2: 12,
-      position3: 13,
-      position4: 25,
-      shapeWidth: 2,
-      shapeHeight: 3,
-    },
-    {
-      rotation: 2,
-      name: 'Zshape',
-      position2: 1,
-      position3: 11,
-      position4: 12,
-      shapeWidth: 3,
-      shapeHeight: 2,
-    }
-  ]
 
-
-
-  const shapes = [boxShapes, zShapes]
-    
 
   // * Make a grid
   // needs an argument for position
@@ -77,56 +79,65 @@ function init() {
 
   function removeShape() {
 
-    cells[currPosition].classList.remove(`${shapes[currShape].name}`)
-    cells[currPosition + shapes[currShape].position2].classList.remove(`${shapes[currShape].name}`)
-    cells[currPosition + shapes[currShape].position3].classList.remove(`${shapes[currShape].name}`)
-    cells[currPosition + shapes[currShape].position4].classList.remove(`${shapes[currShape].name}`)
+    cells[currPosition].classList.remove(`${shapes[currShape][currRotation].name}`)
+    cells[currPosition + shapes[currShape][currRotation].position2].classList.remove(`${shapes[currShape][currRotation].name}`)
+    cells[currPosition + shapes[currShape][currRotation].position3].classList.remove(`${shapes[currShape][currRotation].name}`)
+    cells[currPosition + shapes[currShape][currRotation].position4].classList.remove(`${shapes[currShape][currRotation].name}`)
 
   }
 
   function addShape() {
-    cells[currPosition].classList.add(`${shapes[currShape].name}`)
-    cells[currPosition + shapes[currShape].position2].classList.add(`${shapes[currShape].name}`)
-    cells[currPosition + shapes[currShape].position3].classList.add(`${shapes[currShape].name}`)
-    cells[currPosition + shapes[currShape].position4].classList.add(`${shapes[currShape].name}`)
+    cells[currPosition].classList.add(`${shapes[currShape][currRotation].name}`)
+    cells[currPosition + shapes[currShape][currRotation].position2].classList.add(`${shapes[currShape][currRotation].name}`)
+    cells[currPosition + shapes[currShape][currRotation].position3].classList.add(`${shapes[currShape][currRotation].name}`)
+    cells[currPosition + shapes[currShape][currRotation].position4].classList.add(`${shapes[currShape][currRotation].name}`)
     // console.log(cells[position].classList.value === '')
   }
   function generateRandomShapeIndex() {
     return Math.floor(Math.random() * 2)
   }
-  console.log(generateRandomRotation())
+
   function generateRandomRotation() {
-    return Math.floor(Math.random() * shapes[0].length)
+    return Math.floor(Math.random() * shapes[currShape].length)
   }
 
   function handleKeyUp(event) {
 
     const horizontalPosition = currPosition % gridWidth
     const verticalPosition = Math.floor(currPosition / gridWidth)
-    console.log(horizontalPosition)
+    // console.log(horizontalPosition)
     const shapeNumber = shapeCounter
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - shapes[currShape].shapeWidth) tryMove(1)
+        if (horizontalPosition < gridWidth - shapes[currShape][[currRotation]].shapeWidth) tryMove(1)
         break
       case 37: //arrow left
         if (horizontalPosition > 0) tryMove(-1)
         break
       case 32: //spaceBar
         // if try move succesfull remove
-
         while (shapeCounter === shapeNumber) {
           tryMove(gridWidth)
         }
         break
-      case 40: //arrow down
-        if (currShape === 1) {
-          if (verticalPosition < gridHeight - 3) {
-            currPosition += gridWidth
-          }
-        } else if (verticalPosition < gridHeight - 2) {
-          currPosition += gridWidth
+
+      case 38: // arrow up
+        removeShape()
+        if (currRotation === shapes[currShape].length - 1) {
+          currRotation = 0
+        } else {
+          currRotation++
         }
+        addShape()
+        break
+      case 40: //arrow down
+        removeShape()
+        if (currRotation === 0) {
+          currRotation = shapes[currShape].length - 1
+        } else {
+          currRotation--
+        }
+        addShape()
         break
       default:
         console.log('INVALID KEY')
@@ -162,11 +173,11 @@ function init() {
 
   function tryMove(change) {
     const newPosition = currPosition + change
-    const newPosition2 = newPosition + shapes[currShape].position2
-    const newPosition3 = newPosition + shapes[currShape].position3
-    const newPosition4 = newPosition + shapes[currShape].position4
+    const newPosition2 = newPosition + shapes[currShape][currRotation].position2
+    const newPosition3 = newPosition + shapes[currShape][currRotation].position3
+    const newPosition4 = newPosition + shapes[currShape][currRotation].position4
     removeShape()
-    if (currPosition + shapes[currShape].position4 >= bottomRow[0].dataset.index) {
+    if (currPosition + shapes[currShape][currRotation].position4 >= bottomRow[0].dataset.index) {
       storeShape()
       return
     }
@@ -191,6 +202,7 @@ function init() {
 
   function newShape() {
     currShape = generateRandomShapeIndex()
+    currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
     shapeCounter++
