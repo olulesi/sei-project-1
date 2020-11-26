@@ -18,7 +18,7 @@ function init() {
   let currShape = 0
   let currRotation = 0
   const bottomRow = []
-  let timer
+  let timer 
   let shapeCounter = 0
 
 
@@ -104,7 +104,7 @@ function init() {
   function handleKeyUp(event) {
 
     const horizontalPosition = currPosition % gridWidth
-    const verticalPosition = Math.floor(currPosition / gridWidth)
+    // const verticalPosition = Math.floor(currPosition / gridWidth)
     // console.log(horizontalPosition)
     const shapeNumber = shapeCounter
     switch (event.keyCode) {
@@ -156,20 +156,35 @@ function init() {
   }
 
 
-
-
-
   function completedLines() {
-    // r and c = 1
-    // for row r in grid height 
-    // for cell c in grid width
-    // cells posiiton  = (r-1) * gridwidth + (c-1)
-    // if cell position = empty
-    //break
-    // else if c === gridwidth
-    // clear row
-    // move down 
+    for (let r = 1; r <= gridHeight; r++) {
+      for (let c = 1; c <= gridWidth; c++) {
+        const cellPosition = ((r - 1) * gridWidth) + (c - 1)
+        if (cells[cellPosition].classList.value === '')
+          break
+        else if (c === gridWidth) {
+          clearRow(r)
+          r--
+        }
+      }
+    }
   }
+
+  function clearRow(row) {
+    for (let c = 1; c <= gridWidth; c++) {
+      const cellPosition = ((row - 1) * gridWidth + (c - 1))
+      cells[cellPosition].classList.value = ''
+    }
+  }
+  // r and c = 1
+  // for row r in grid height 
+  // for cell c in grid width
+  // cells posiiton  = (r-1) * gridwidth + (c-1)
+  // if cell position = empty
+  //break
+  // else if c === gridwidth
+  // clear row
+  // move down 
 
   function tryMove(change) {
     const newPosition = currPosition + change
@@ -201,7 +216,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = generateRandomShapeIndex()
+    currShape = 0
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
@@ -209,12 +224,13 @@ function init() {
     console.log('newShape' + shapeCounter)
   }
 
-  function endGame() {
-  }
+  // function endGame() {
+  // }
   function storeShape() {
     // push shape into cells array with its classList 
     addShape()
     //check for complete lines 
+    completedLines()
     // add another shape from the start position
     newShape()
   }
@@ -227,10 +243,9 @@ function init() {
       if (currPosition === -1) {
         return
       }
-
       tryMove(gridWidth)
       console.log(currPosition)
-    }, 250)
+    }, 150)
     console.log('im outside')
   }
 
