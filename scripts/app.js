@@ -53,6 +53,75 @@ function init() {
         shapeWidth: 3,
         shapeHeight: 2,
       }
+    ],
+    [
+      {
+        rotation: 1,
+        name: 'Ishape',
+        position2: -1,
+        position3: -2,
+        position4: -3,
+        shapeWidth: 1,
+        shapeHeight: 1,
+        
+      },
+      {
+        rotation: 2,
+        name: 'Ishape',
+        position2: 12,
+        position3: 24,
+        position4: 36,
+        shapeWidth: 1,
+        shapeHeight: 4,
+      },
+      {
+        rotation: 3,
+        name: 'Ishape',
+        position2: 1,
+        position3: 2,
+        position4: 3,
+        shapeWidth: 1,
+        shapeHeight: 1,
+      }
+    ],
+    [
+      {
+        rotation: 1,
+        name: 'Tshape',
+        position2: -1,
+        position3: 1,
+        position4: 12,
+        shapeWidth: 2,
+        shapeHeight: 3,
+        
+      },
+      {
+        rotation: 2,
+        name: 'Tshape',
+        position2: 12,
+        position3: 13,
+        position4: 24,
+        shapeWidth: 2,
+        shapeHeight: 2,
+      },
+      {
+        rotation: 3,
+        name: 'Tshape',
+        position2: 11,
+        position3: 12,
+        position4: 13,
+        shapeWidth: 2,
+        shapeHeight: 3,
+      },
+      {
+        rotation: 4,
+        name: 'Tshape',
+        position2: 11,
+        position3: 12,
+        position4: 24,
+        shapeWidth: 1,
+        shapeHeight: 2,
+      }
     ]
   ]
 
@@ -94,7 +163,7 @@ function init() {
     // console.log(cells[position].classList.value === '')
   }
   function generateRandomShapeIndex() {
-    return Math.floor(Math.random() * 2)
+    return Math.floor(Math.random() * 3)
   }
 
   function generateRandomRotation() {
@@ -170,6 +239,20 @@ function init() {
     }
   }
 
+  function moveRowDown(row) {
+    for (let r = row; r <= gridHeight; r++) {
+      for (let c = 1; c <= gridWidth; c++) {
+        const cellPosition = ((r - 1) * gridWidth) + (c - 1)
+        if (cells[cellPosition].classList.value === '')
+          break
+        else if (c === gridWidth) {
+          clearRow(r)
+          r--
+        }
+      }
+    }
+  }
+
   function clearRow(row) {
     for (let c = 1; c <= gridWidth; c++) {
       const cellPosition = ((row - 1) * gridWidth + (c - 1))
@@ -216,7 +299,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = 0
+    currShape = 3
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
