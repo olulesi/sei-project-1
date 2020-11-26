@@ -36,7 +36,7 @@ function init() {
     [
       {
         rotation: 1,
-        name: 'Zshape',
+        name: 'Sshape',
         position2: 12,
         position3: 13,
         position4: 25,
@@ -44,11 +44,29 @@ function init() {
       },
       {
         rotation: 2,
-        name: 'Zshape',
+        name: 'Sshape',
         position2: 1,
         position3: 11,
         position4: 12,
         shapeWidth: 3,
+      }
+    ],
+    [
+      {
+        rotation: 1,
+        name: 'Zshape',
+        position2: 1,
+        position3: 13,
+        position4: 14,
+        shapeWidth: 3,
+      },
+      {
+        rotation: 2,
+        name: 'Zshape',
+        position2: 12,
+        position3: 11,
+        position4: 23,
+        shapeWidth: 1,
       }
     ],
     [
@@ -222,7 +240,7 @@ function init() {
     // console.log(cells[position].classList.value === '')
   }
   function generateRandomShapeIndex() {
-    return Math.floor(Math.random() * 3)
+    return Math.floor(Math.random() * shapes.length)
   }
 
   function generateRandomRotation() {
@@ -358,7 +376,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = 5
+    currShape = generateRandomShapeIndex()
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)

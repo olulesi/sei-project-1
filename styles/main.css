@@ -99,6 +99,11 @@ body {
 }
 
 .Zshape {
+  background-color:#dd4c46;
+  border: 1px solid #2f1820;
+} 
+
+.Sshape {
   background-color:#98aa2c;
   border: 1px solid #2f1820;
 }
@@ -116,7 +121,7 @@ body {
   border: 1px solid #2f1820;
 }
 .Jshape {
-  background-color:#f18e10;
+  background-color:#dd9433;
   border: 1px solid #2f1820;
 }
 
