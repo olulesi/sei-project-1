@@ -30,8 +30,7 @@ function init() {
         position2: 1,
         position3: 12,
         position4: 13,
-        shapeWidth: 2,
-        shapeHeight: 2
+        shapeWidth: 2,      
       }
     ],
     [
@@ -42,7 +41,6 @@ function init() {
         position3: 13,
         position4: 25,
         shapeWidth: 2,
-        shapeHeight: 3,
       },
       {
         rotation: 2,
@@ -51,7 +49,6 @@ function init() {
         position3: 11,
         position4: 12,
         shapeWidth: 3,
-        shapeHeight: 2,
       }
     ],
     [
@@ -62,7 +59,6 @@ function init() {
         position3: -2,
         position4: -3,
         shapeWidth: 1,
-        shapeHeight: 1,
         
       },
       {
@@ -72,7 +68,6 @@ function init() {
         position3: 24,
         position4: 36,
         shapeWidth: 1,
-        shapeHeight: 4,
       },
       {
         rotation: 3,
@@ -81,7 +76,6 @@ function init() {
         position3: 2,
         position4: 3,
         shapeWidth: 1,
-        shapeHeight: 1,
       }
     ],
     [
@@ -92,7 +86,6 @@ function init() {
         position3: 1,
         position4: 12,
         shapeWidth: 2,
-        shapeHeight: 3,
         
       },
       {
@@ -102,7 +95,6 @@ function init() {
         position3: 13,
         position4: 24,
         shapeWidth: 2,
-        shapeHeight: 2,
       },
       {
         rotation: 3,
@@ -111,7 +103,6 @@ function init() {
         position3: 12,
         position4: 13,
         shapeWidth: 2,
-        shapeHeight: 3,
       },
       {
         rotation: 4,
@@ -120,7 +111,6 @@ function init() {
         position3: 12,
         position4: 24,
         shapeWidth: 1,
-        shapeHeight: 2,
       }
     ],
     [
@@ -131,7 +121,6 @@ function init() {
         position3: 2,
         position4: 12,
         shapeWidth: 3,
-        shapeHeight: 2,
         
       },
       {
@@ -141,7 +130,6 @@ function init() {
         position3: 13,
         position4: 25,
         shapeWidth: 2,
-        shapeHeight: 3,
       },
       {
         rotation: 3,
@@ -150,7 +138,6 @@ function init() {
         position3: 11,
         position4: 12,
         shapeWidth: 1,
-        shapeHeight: 1,
       },
       {
         rotation: 4,
@@ -159,7 +146,40 @@ function init() {
         position3: 24,
         position4: 25,
         shapeWidth: 2,
-        shapeHeight: 3,
+      }
+    ],
+    [
+      {
+        rotation: 1,
+        name: 'Jshape',
+        position2: 1,
+        position3: 2,
+        position4: 14,
+        shapeWidth: 3,
+      },
+      {
+        rotation: 2,
+        name: 'Jshape',
+        position2: 12,
+        position3: 24,
+        position4: 23,
+        shapeWidth: 1,
+      },
+      {
+        rotation: 3,
+        name: 'Jshape',
+        position2: 12,
+        position3: 13,
+        position4: 14,
+        shapeWidth: 3,
+      },
+      {
+        rotation: 4,
+        name: 'Jshape',
+        position2: 1,
+        position3: 12,
+        position4: 24,
+        shapeWidth: 2,
       }
     ]
   ]
@@ -338,7 +358,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = 4
+    currShape = 5
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
