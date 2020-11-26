@@ -52,9 +52,8 @@ function init() {
 
 
 
-  const shapes = [ boxShapes, zShapes]
+  const shapes = [boxShapes, zShapes]
     
-  ]
 
   // * Make a grid
   // needs an argument for position
@@ -94,6 +93,10 @@ function init() {
   }
   function generateRandomShapeIndex() {
     return Math.floor(Math.random() * 2)
+  }
+  console.log(generateRandomRotation())
+  function generateRandomRotation() {
+    return Math.floor(Math.random() * shapes[0].length)
   }
 
   function handleKeyUp(event) {
