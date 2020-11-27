@@ -75,7 +75,7 @@ function init() {
         name: 'Ishape',
         position2: -1,
         position3: -2,
-        position4: -3,
+        position4: 1,
         shapeWidth: 1,
 
       },
@@ -86,15 +86,15 @@ function init() {
         position3: 24,
         position4: 36,
         shapeWidth: 1,
-      },
-      {
-        rotation: 3,
-        name: 'Ishape',
-        position2: 1,
-        position3: 2,
-        position4: 3,
-        shapeWidth: 1,
       }
+      // {
+      //   rotation: 3,
+      //   name: 'Ishape',
+      //   position2: -1,
+      //   position3: 1,
+      //   position4: 2,
+      //   shapeWidth: 1,
+      // }
     ],
     [
       {
@@ -210,7 +210,6 @@ function init() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.setAttribute('data-index', i)
-      cell.setAttribute('color', '')
       cell.textContent = i
       cells.push(cell)
       // console.log(bottomRow[2].dataset.index)
@@ -300,6 +299,7 @@ function init() {
       shapeCells.push(nextShapeCell)
     }
   }
+  
 
 
   function completedLines() {

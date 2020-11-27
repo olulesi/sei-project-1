@@ -13,11 +13,21 @@ body {
     linear-gradient(to bottom, #d4b49b 1px, #e2c3a8 1px),
     linear-gradient(to top, grey 1px, #e2c3a8 1px);
     display: flex;
+    flex-direction: column;
+    font-family: 'Handlee', cursive;
 }
-
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main {
+  display: flex;
+  height: 100vh;
+}
 .tetris-wrapper{
   display: flex;
-  width: 90%;
+  width: 33%;
   align-items: center;
   justify-content: center;
   margin: auto;
@@ -25,14 +35,18 @@ body {
 
 .sideScore {
   margin-top: 10px;
-  width: 33vh;
+  width: 33%;
   height: 100vh;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
   flex-grow: 1;
-  height: 480px;
   
+}
+
+.scoreTitle-wrapper, .lineTitle-wrapper{
+  font-family: 'Handlee', cursive;
 }
 
 .shape-wrapper {
@@ -63,7 +77,8 @@ body {
   margin-top: 10px;
   height: 100vh;
   display: flex;
-  align-items: center;
+  margin-right: 50px;
+
   flex-grow: 1;
   height: 480px;
   border: 2px solid #86674f;
