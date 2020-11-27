@@ -50,7 +50,7 @@ main {
 }
 
 .shape-wrapper {
-  margin-top: 20px;
+  margin-top: 7px;
   display: flex;
   justify-content: top;
   align-items: center;
@@ -59,25 +59,22 @@ main {
 
 .score-wrapper{
   margin-top: 28px;
-  border: 2px solid #2f1820b2;
+  border: 2px solid #86674f;
   width: 130px;
 }
 button {
-  display: inline-block;
+  all: unset;
   border: none;
-  padding: 1rem 2rem;
+  padding: 10px 20px;
   margin: 0;
   text-decoration: none;
-  background: #0069ed;
-  color: #ffffff;
-  font-family: sans-serif;
+  background: transparent;
+  color: black;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  transition: background 250ms ease-in-out, 
-              transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  font-family: 'Handlee', cursive;
+  font-size: 20px;
 }
 p{
   margin: 0;
