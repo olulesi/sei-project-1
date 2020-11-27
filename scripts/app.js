@@ -15,8 +15,8 @@ function init() {
   const gridHeight = gridWidth * 2
   const cellCount = gridHeight * gridWidth
   const cells = []
-  const windowWidth  = 4
-  const windowCellCount = windowWidth * windowWidth 
+  const windowWidth = 4
+  const windowCellCount = windowWidth * windowWidth
   const windowCells = []
   let currPosition = 5
   let currShape = 0
@@ -25,7 +25,6 @@ function init() {
   let nextRotation = 0
   const bottomRow = []
   let timer
-  let shapeCounter = 0
   let windowPosition = 0
 
 
@@ -352,7 +351,7 @@ function init() {
     const horizontalPosition = currPosition % gridWidth
     // const verticalPosition = Math.floor(currPosition / gridWidth)
     // console.log(horizontalPosition)
-    const shapeNumber = shapeCounter
+    // const shapeNumber = shapeCounter
     switch (event.keyCode) {
       case 39: //arrow right
         if (horizontalPosition < gridWidth - shapes[currShape][[currRotation]].rightWidth) tryMove(1)
@@ -360,12 +359,12 @@ function init() {
       case 37: //arrow left
         if (horizontalPosition >= shapes[currShape][[currRotation]].leftWidth) tryMove(-1)
         break
-      case 32: //spaceBar
-        // if try move succesfull remove
-        while (shapeCounter === shapeNumber) {
-          tryMove(gridWidth)
-        }
-        break
+        // case 32: //spaceBar
+        //   // if try move succesfull remove
+        //   while (shapeCounter === shapeNumber) {
+        //     tryMove(gridWidth)
+        //   }
+        //   break
 
       case 38: // arrow up
         removeShape()
@@ -394,7 +393,7 @@ function init() {
   function nextShapeGrid() {
     for (let i = 0; i < windowCellCount; i++) {
       const nextShapeCell = document.createElement('div')
-      nextShapeCell.textContent = i
+      // nextShapeCell.textContent = i
       nextShapeCell.setAttribute('data-index', i)
       tetrisShape.appendChild(nextShapeCell)
       windowCells.push(nextShapeCell)
@@ -410,7 +409,7 @@ function init() {
     windowCells[nextPosition + shapes[nextShape][nextRotation].nextPosition3].classList.add(`${shapes[nextShape][nextRotation].name}`)
     windowCells[nextPosition + shapes[nextShape][nextRotation].nextPosition4].classList.add(`${shapes[nextShape][nextRotation].name}`)
   }
-  
+
 
 
   function completedLines() {
@@ -423,9 +422,9 @@ function init() {
           clearRow(r)
           scoreLine++
           lineScore.innerHTML = scoreLine
-          totalScore.innerHTML = (scoreLine * 100) 
+          totalScore.innerHTML = (scoreLine * 100)
           moveRowDown(r)
-          r-- 
+          r--
         }
       }
     }
@@ -436,7 +435,7 @@ function init() {
       for (let c = 1; c <= gridWidth; c++) {
         const cellPosition = ((r - 1) * gridWidth) + (c - 1)
         const newCellPosition = ((r - 2) * gridWidth) + (c - 1)
-        if (newCellPosition <  0){
+        if (newCellPosition < 0) {
           clearRow(r)
         } else {
           cells[cellPosition].classList.value = cells[newCellPosition].classList.value
@@ -444,7 +443,7 @@ function init() {
             cells[newCellPosition].classList.value = ''
           }
         }
-        
+
       }
     }
   }
@@ -503,8 +502,8 @@ function init() {
     windowPosition = shapes[nextShape][nextRotation].nextPosition
     updateWindow(nextShape, nextRotation, windowPosition)
     tryMove(0)
-    shapeCounter++
-    console.log('newShape' + shapeCounter)
+    // shapeCounter++
+    // console.log('newShape' + shapeCounter)
   }
 
   function endGame() {
@@ -543,9 +542,9 @@ function init() {
 
   createGrid()
   nextShapeGrid()
-  
+
   start.addEventListener('click', startGame)
-  
+
 
 
 }
