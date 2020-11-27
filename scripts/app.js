@@ -7,6 +7,8 @@ function init() {
   const start = document.querySelector('#start')
   const title = document.querySelector('h1')
   const totalScore = document.querySelector('.scoreBox')
+  const lineScore = document.querySelector('.lineBox')
+  const reset = 'Try Again'
   
 
   // var the width so you can manipulate the size whenever
@@ -396,6 +398,7 @@ function init() {
     title.innerHTML = 'Game Over'
     start.classList.remove('buttonHide')
     start.innerHTML = 'Try Again'
+    start.addEventListener('click', resetGame)
   }
   function storeShape() {
     // push shape into cells array with its classList 
@@ -421,14 +424,14 @@ function init() {
     console.log('im outside')
   }
 
+  function resetGame() {
+    window.location.reload()
+  }
 
   createGrid()
   nextShapeGrid()
-  if (start.innerHTML === 'Try Again') {
-    window.location.reload()
-  } else {
-    start.addEventListener('click', startGame)
-  }
+  
+  start.addEventListener('click', startGame)
   
 
 

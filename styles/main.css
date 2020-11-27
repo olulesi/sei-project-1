@@ -59,7 +59,7 @@ main {
 
 .score-wrapper{
   margin-top: 28px;
-  border: 2px solid #86674f;
+  /* border: 2px solid #86674f; */
   width: 130px;
 }
 button {
@@ -209,7 +209,7 @@ p{
     }
     .score-wrapper{
       margin-top: 19px;
-      border: 2px solid #86674f;
+      /* border: 2px solid #86674f; */
       width: 130px;
     }
 }
