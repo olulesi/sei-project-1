@@ -210,7 +210,7 @@ function init() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.setAttribute('data-index', i)
-      cell.textContent = i
+      // cell.textContent = i
       cells.push(cell)
       // console.log(bottomRow[2].dataset.index)
       if (i >= cellCount - gridWidth) {

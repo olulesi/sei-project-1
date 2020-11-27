@@ -23,30 +23,22 @@ header {
 }
 main {
   display: flex;
-  height: 100vh;
-}
-.tetris-wrapper{
-  display: flex;
-  width: 33%;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
+  margin-top: 5px;
+  align-items: flex-start;
 }
 
 .sideScore {
   margin-top: 10px;
   width: 33%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   flex-grow: 1;
+  text-align: center;
+  margin: 0 30px;
+  height: 50%;
   
-}
-
-.scoreTitle-wrapper, .lineTitle-wrapper{
-  font-family: 'Handlee', cursive;
 }
 
 .shape-wrapper {
@@ -54,6 +46,16 @@ main {
   display: flex;
   justify-content: top;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.score-wrapper{
+  margin-top: 28px;
+  border: 2px solid #2f1820b2;
+  width: 50%;
+}
+p{
+  margin: 0;
 }
 
 .shape{
@@ -87,7 +89,6 @@ main {
 }
 
 .grid {
-  
   display: flex;
   flex-wrap: wrap;
   height: 100%;
@@ -96,7 +97,6 @@ main {
 }
 
 .grid div {
-
   border: 1px solid #d4b49b;
   flex-grow: 1;
   height: 20px;
