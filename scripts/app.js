@@ -18,7 +18,7 @@ function init() {
   let currShape = 0
   let currRotation = 0
   const bottomRow = []
-  let timer 
+  let timer
   let shapeCounter = 0
 
 
@@ -30,7 +30,7 @@ function init() {
         position2: 1,
         position3: 12,
         position4: 13,
-        shapeWidth: 2,      
+        shapeWidth: 2,
       }
     ],
     [
@@ -77,7 +77,7 @@ function init() {
         position3: -2,
         position4: -3,
         shapeWidth: 1,
-        
+
       },
       {
         rotation: 2,
@@ -104,7 +104,7 @@ function init() {
         position3: 1,
         position4: 12,
         shapeWidth: 2,
-        
+
       },
       {
         rotation: 2,
@@ -139,7 +139,7 @@ function init() {
         position3: 2,
         position4: 12,
         shapeWidth: 3,
-        
+
       },
       {
         rotation: 2,
@@ -310,22 +310,28 @@ function init() {
           break
         else if (c === gridWidth) {
           clearRow(r)
-          r--
+          moveRowDown(r)
+          r-- 
+          
         }
       }
     }
   }
 
   function moveRowDown(row) {
-    for (let r = row; r <= gridHeight; r++) {
+    for (let r = row; r > 0; r--) {
       for (let c = 1; c <= gridWidth; c++) {
         const cellPosition = ((r - 1) * gridWidth) + (c - 1)
-        if (cells[cellPosition].classList.value === '')
-          break
-        else if (c === gridWidth) {
+        const newCellPosition = ((r - 2) * gridWidth) + (c - 1)
+        if (newCellPosition <  0){
           clearRow(r)
-          r--
+        } else {
+          cells[cellPosition].classList.value = cells[newCellPosition].classList.value
+          if (!cells[newCellPosition].classList.value) {
+            cells[newCellPosition].classList.value = ''
+          }
         }
+        
       }
     }
   }
@@ -376,7 +382,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = generateRandomShapeIndex()
+    currShape = 0
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
