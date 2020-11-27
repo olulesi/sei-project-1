@@ -26,6 +26,8 @@ function init() {
   const bottomRow = []
   let timer
   let windowPosition = 0
+  let shapeCounter = 0
+  let shapeNumber  = 0
 
 
 
@@ -351,20 +353,22 @@ function init() {
     const horizontalPosition = currPosition % gridWidth
     // const verticalPosition = Math.floor(currPosition / gridWidth)
     // console.log(horizontalPosition)
-    // const shapeNumber = shapeCounter
+  
     switch (event.keyCode) {
+
       case 39: //arrow right
         if (horizontalPosition < gridWidth - shapes[currShape][[currRotation]].rightWidth) tryMove(1)
         break
       case 37: //arrow left
         if (horizontalPosition >= shapes[currShape][[currRotation]].leftWidth) tryMove(-1)
         break
-        // case 32: //spaceBar
-        //   // if try move succesfull remove
-        //   while (shapeCounter === shapeNumber) {
-        //     tryMove(gridWidth)
-        //   }
-        //   break
+      case 32: //spaceBar
+        // if try move succesfull remove
+        shapeNumber = shapeCounter
+        do {
+          tryMove(gridWidth)
+        } while (shapeCounter === shapeNumber)
+        break
 
       case 38: // arrow up
         removeShape()
@@ -502,8 +506,8 @@ function init() {
     windowPosition = shapes[nextShape][nextRotation].nextPosition
     updateWindow(nextShape, nextRotation, windowPosition)
     tryMove(0)
-    // shapeCounter++
-    // console.log('newShape' + shapeCounter)
+    shapeCounter++
+    console.log('newShape' + shapeCounter)
   }
 
   function endGame() {
