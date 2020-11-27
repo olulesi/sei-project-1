@@ -2,13 +2,20 @@
   box-sizing: border-box;
 }
 
-
 body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+} 
+
+.body {
   margin: 0;
   /* background-color: #d4b49b;
   background-image: url("https://www.transparenttextures.com/patterns/notebook.png"); */
   background-size: 20px 20px;
-  height: 100vh;
+  width: 60%;
+  /* height: 100vh; */
   font-family: 'Handlee', cursive;
   background-image: 
     linear-gradient(to bottom, #d4b49b 1px, #e2c3a8 1px),
@@ -122,39 +129,39 @@ p{
 
 .lShape {
   background-color:#d8473e;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 
 .boxShape {
   background-color:#e2b911;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 
 .Zshape {
   background-color:#dd4c46;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 } 
 
 .Sshape {
   background-color:#98aa2c;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 
 .Ishape {
   background-color:#97aa9e;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 .Tshape {
   background-color:#d98b8f;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 .Lshape {
   background-color:#a17182;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 .Jshape {
   background-color:#dd9433;
-  border: 1px solid #2f1820;
+  border: 1px solid #d4b49b;
 }
 
 @media screen 
@@ -171,7 +178,7 @@ p{
       width: 180px;    
     }
     .grid-wrapper {
-      margin-top: 10px;
+      margin-top: 14px;
       display: flex;
       width: 180px;
       height: 360px;
@@ -185,7 +192,7 @@ p{
       height: 4%;
       width: 8%;
     }
-    body {
+    .body {
       margin: 0;
       /* background-color: #d4b49b;
       background-image: url("https://www.transparenttextures.com/patterns/notebook.png"); */
