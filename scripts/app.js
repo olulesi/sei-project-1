@@ -5,6 +5,9 @@ function init() {
   const grid = document.querySelector('.grid')
   const tetrisShape = document.querySelector('.shape')
   const start = document.querySelector('#start')
+  const title = document.querySelector('h1')
+  const tryAgain = document.querySelector('button')
+  
 
   // var the width so you can manipulate the size whenever
   const gridWidth = 12
@@ -223,7 +226,6 @@ function init() {
   }
 
   function removeShape() {
-
     cells[currPosition].classList.remove(`${shapes[currShape][currRotation].name}`)
     cells[currPosition + shapes[currShape][currRotation].position2].classList.remove(`${shapes[currShape][currRotation].name}`)
     cells[currPosition + shapes[currShape][currRotation].position3].classList.remove(`${shapes[currShape][currRotation].name}`)
@@ -390,8 +392,10 @@ function init() {
     console.log('newShape' + shapeCounter)
   }
 
-  // function endGame() {
-  // }
+  function endGame() {
+    title.innerHTML = 'Game Over'
+    tryAgain.innerHTML = 'Try Again'
+  }
   function storeShape() {
     // push shape into cells array with its classList 
     addShape()
@@ -407,6 +411,7 @@ function init() {
     timer = setInterval(() => {
       document.addEventListener('keyup', handleKeyUp)
       if (currPosition === -1) {
+        endGame()
         return
       }
       tryMove(gridWidth)
