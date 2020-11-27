@@ -161,6 +161,10 @@ p{
   border: 1px solid #d4b49b;
 }
 
+.buttonHide{
+  display: none;
+}
+
 @media screen 
   and (min-device-width: 1200px) 
   and (max-device-width: 1600px) 
@@ -202,5 +206,10 @@ p{
         display: flex;
         flex-direction: column;
         
+    }
+    .score-wrapper{
+      margin-top: 19px;
+      border: 2px solid #86674f;
+      width: 130px;
     }
 }
