@@ -382,7 +382,7 @@ function init() {
   }
 
   function newShape() {
-    currShape = 0
+    currShape = generateRandomShapeIndex()
     currRotation = generateRandomRotation()
     currPosition = 5
     tryMove(0)
