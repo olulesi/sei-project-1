@@ -9,12 +9,13 @@ body {
   background-image: url("https://www.transparenttextures.com/patterns/notebook.png"); */
   background-size: 20px 20px;
   height: 100vh;
+  font-family: 'Handlee', cursive;
   background-image: 
     linear-gradient(to bottom, #d4b49b 1px, #e2c3a8 1px),
     linear-gradient(to top, grey 1px, #e2c3a8 1px);
     display: flex;
     flex-direction: column;
-    font-family: 'Handlee', cursive;
+    
 }
 header {
   display: flex;
@@ -25,6 +26,7 @@ main {
   display: flex;
   margin-top: 5px;
   align-items: flex-start;
+  justify-content: center;
 }
 
 .sideScore {
@@ -34,7 +36,6 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  flex-grow: 1;
   text-align: center;
   margin: 0 30px;
   height: 50%;
@@ -46,13 +47,30 @@ main {
   display: flex;
   justify-content: top;
   align-items: center;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .score-wrapper{
   margin-top: 28px;
   border: 2px solid #2f1820b2;
-  width: 50%;
+  width: 130px;
+}
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #0069ed;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 p{
   margin: 0;
@@ -80,27 +98,26 @@ p{
   height: 100vh;
   display: flex;
   margin-right: 50px;
-
-  flex-grow: 1;
   height: 480px;
   border: 2px solid #86674f;
   border-top: none;
+  align-items: center;
 
 }
 
 .grid {
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   height: 480px;
   width: 240px;
+  
 }
 
 .grid div {
-  border: 1px solid #d4b49b;
+  /* border: 1px solid #d4b49b; */
   flex-grow: 1;
-  height: 20px;
-  width: 20px;
+  height: 4%;
+  width: 8%;
 }
 
 .lShape {
@@ -140,3 +157,46 @@ p{
   border: 1px solid #2f1820;
 }
 
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+    h1 {
+      margin: 0;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      height: 360px;
+      width: 180px;    
+    }
+    .grid-wrapper {
+      margin-top: 10px;
+      display: flex;
+      width: 180px;
+      height: 360px;
+      border: 2px solid #86674f;
+      border-top: none;
+    
+    }
+    .grid div {
+      /* border: 1px solid #d4b49b; */
+      flex-grow: 1;
+      height: 4%;
+      width: 8%;
+    }
+    body {
+      margin: 0;
+      /* background-color: #d4b49b;
+      background-image: url("https://www.transparenttextures.com/patterns/notebook.png"); */
+      background-size: 20px 20px;
+      height: 100vh;
+      font-family: 'Handlee', cursive;
+      background-image: 
+        linear-gradient(to bottom, #d4b49b 1px, #e2c3a8 1px),
+        linear-gradient(to top, grey 1px, #e2c3a8 1px);
+        display: flex;
+        flex-direction: column;
+        
+    }
+}
