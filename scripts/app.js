@@ -8,23 +8,25 @@ function init() {
   const title = document.querySelector('h1')
   const totalScore = document.querySelector('.scoreBox')
   const lineScore = document.querySelector('.lineBox')
-  const reset = 'Try Again'
-  
+  let scoreLine = 0
 
   // var the width so you can manipulate the size whenever
   const gridWidth = 12
   const gridHeight = gridWidth * 2
   const cellCount = gridHeight * gridWidth
   const cells = []
-  const shapeWidth = 4
-  const shapeCellCount = shapeWidth * shapeWidth
-  const shapeCells = []
+  const windowWidth  = 4
+  const windowCellCount = windowWidth * windowWidth 
+  const windowCells = []
   let currPosition = 5
   let currShape = 0
   let currRotation = 0
+  let nextShape = 0
+  let nextRotation = 0
   const bottomRow = []
   let timer
   let shapeCounter = 0
+  let windowPosition = 0
 
 
 
@@ -35,7 +37,12 @@ function init() {
         position2: 1,
         position3: 12,
         position4: 13,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 1,
+        nextPosition3: 4,
+        nextPosition4: 5,
       }
     ],
     [
@@ -45,7 +52,12 @@ function init() {
         position2: 12,
         position3: 13,
         position4: 25,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 4,
+        nextPosition3: 5,
+        nextPosition4: 9,
       },
       {
         rotation: 2,
@@ -53,7 +65,12 @@ function init() {
         position2: 1,
         position3: 11,
         position4: 12,
-        shapeWidth: 3,
+        rightWidth: 2,
+        leftWidth: 2,
+        nextPosition: 5,
+        nextPosition2: 1,
+        nextPosition3: 3,
+        nextPosition4: 4,
       }
     ],
     [
@@ -63,25 +80,40 @@ function init() {
         position2: 1,
         position3: 13,
         position4: 14,
-        shapeWidth: 3,
+        rightWidth: 3,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 1,
+        nextPosition3: 5,
+        nextPosition4: 6,
       },
       {
         rotation: 2,
         name: 'Zshape',
-        position2: 12,
-        position3: 11,
+        position2: 11,
+        position3: 12,
         position4: 23,
-        shapeWidth: 1,
+        rightWidth: 1,
+        leftWidth: 2,
+        nextPosition: 6,
+        nextPosition2: 4,
+        nextPosition3: 3,
+        nextPosition4: 7,
       }
     ],
     [
       {
         rotation: 1,
         name: 'Ishape',
-        position2: -1,
-        position3: -2,
-        position4: 1,
-        shapeWidth: 1,
+        position2: 1,
+        position3: 2,
+        position4: 3,
+        rightWidth: 4,
+        leftWidth: 1,
+        nextPosition: 8,
+        nextPosition2: 1,
+        nextPosition3: 2,
+        nextPosition4: 3,
 
       },
       {
@@ -90,7 +122,12 @@ function init() {
         position2: 12,
         position3: 24,
         position4: 36,
-        shapeWidth: 1,
+        rightWidth: 1,
+        leftWidth: 1,
+        nextPosition: 1,
+        nextPosition2: 4,
+        nextPosition3: 8,
+        nextPosition4: 12,
       }
       // {
       //   rotation: 3,
@@ -105,10 +142,15 @@ function init() {
       {
         rotation: 1,
         name: 'Tshape',
-        position2: -1,
-        position3: 1,
-        position4: 12,
-        shapeWidth: 2,
+        position2: 1,
+        position3: 2,
+        position4: 13,
+        rightWidth: 3,
+        leftWidth: 1,
+        nextPosition: 4,
+        nextPosition2: 1,
+        nextPosition3: 2,
+        nextPosition4: 5,
 
       },
       {
@@ -117,7 +159,12 @@ function init() {
         position2: 12,
         position3: 13,
         position4: 24,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 4,
+        nextPosition3: 5,
+        nextPosition4: 8,
       },
       {
         rotation: 3,
@@ -125,7 +172,12 @@ function init() {
         position2: 11,
         position3: 12,
         position4: 13,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 2,
+        nextPosition: 5,
+        nextPosition2: 3,
+        nextPosition3: 4,
+        nextPosition4: 5,
       },
       {
         rotation: 4,
@@ -133,7 +185,12 @@ function init() {
         position2: 11,
         position3: 12,
         position4: 24,
-        shapeWidth: 1,
+        rightWidth: 1,
+        leftWidth: 2,
+        nextPosition: 6,
+        nextPosition2: 3,
+        nextPosition3: 4,
+        nextPosition4: 8,
       }
     ],
     [
@@ -143,7 +200,12 @@ function init() {
         position2: 1,
         position3: 2,
         position4: 12,
-        shapeWidth: 3,
+        rightWidth: 3,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 1,
+        nextPosition3: 2,
+        nextPosition4: 4,
 
       },
       {
@@ -152,7 +214,12 @@ function init() {
         position2: 1,
         position3: 13,
         position4: 25,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 1,
+        nextPosition3: 5,
+        nextPosition4: 9,
       },
       {
         rotation: 3,
@@ -160,7 +227,12 @@ function init() {
         position2: 10,
         position3: 11,
         position4: 12,
-        shapeWidth: 1,
+        rightWidth: 1,
+        leftWidth: 3,
+        nextPosition: 6,
+        nextPosition2: 2,
+        nextPosition3: 3,
+        nextPosition4: 4,
       },
       {
         rotation: 4,
@@ -168,7 +240,12 @@ function init() {
         position2: 12,
         position3: 24,
         position4: 25,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 4,
+        nextPosition3: 8,
+        nextPosition4: 9,
       }
     ],
     [
@@ -178,15 +255,25 @@ function init() {
         position2: 1,
         position3: 2,
         position4: 14,
-        shapeWidth: 3,
+        rightWidth: 3,
+        leftWidth: 1,
+        nextPosition: 4,
+        nextPosition2: 1,
+        nextPosition3: 2,
+        nextPosition4: 6,
       },
       {
         rotation: 2,
         name: 'Jshape',
         position2: 12,
-        position3: 24,
-        position4: 23,
-        shapeWidth: 1,
+        position3: 23,
+        position4: 24,
+        rightWidth: 1,
+        leftWidth: 2,
+        nextPosition: 6,
+        nextPosition2: 4,
+        nextPosition3: 7,
+        nextPosition4: 8,
       },
       {
         rotation: 3,
@@ -194,7 +281,12 @@ function init() {
         position2: 12,
         position3: 13,
         position4: 14,
-        shapeWidth: 3,
+        rightWidth: 3,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 4,
+        nextPosition3: 5,
+        nextPosition4: 6,
       },
       {
         rotation: 4,
@@ -202,7 +294,12 @@ function init() {
         position2: 1,
         position3: 12,
         position4: 24,
-        shapeWidth: 2,
+        rightWidth: 2,
+        leftWidth: 1,
+        nextPosition: 5,
+        nextPosition2: 1,
+        nextPosition3: 4,
+        nextPosition4: 8,
       }
     ]
   ]
@@ -247,7 +344,7 @@ function init() {
   }
 
   function generateRandomRotation() {
-    return Math.floor(Math.random() * shapes[currShape].length)
+    return Math.floor(Math.random() * shapes[nextShape].length)
   }
 
   function handleKeyUp(event) {
@@ -258,10 +355,10 @@ function init() {
     const shapeNumber = shapeCounter
     switch (event.keyCode) {
       case 39: //arrow right
-        if (horizontalPosition < gridWidth - shapes[currShape][[currRotation]].shapeWidth) tryMove(1)
+        if (horizontalPosition < gridWidth - shapes[currShape][[currRotation]].rightWidth) tryMove(1)
         break
       case 37: //arrow left
-        if (horizontalPosition > 0) tryMove(-1)
+        if (horizontalPosition >= shapes[currShape][[currRotation]].leftWidth) tryMove(-1)
         break
       case 32: //spaceBar
         // if try move succesfull remove
@@ -295,13 +392,23 @@ function init() {
   }
 
   function nextShapeGrid() {
-    for (let i = 0; i < shapeCellCount; i++) {
+    for (let i = 0; i < windowCellCount; i++) {
       const nextShapeCell = document.createElement('div')
       nextShapeCell.textContent = i
       nextShapeCell.setAttribute('data-index', i)
       tetrisShape.appendChild(nextShapeCell)
-      shapeCells.push(nextShapeCell)
+      windowCells.push(nextShapeCell)
     }
+  }
+
+  function updateWindow(nextShape, nextRotation, nextPosition) {
+    for (let c = 0; c < windowCellCount; c++) {
+      windowCells[c].classList.value = ''
+    }
+    windowCells[nextPosition].classList.add(`${shapes[nextShape][nextRotation].name}`)
+    windowCells[nextPosition + shapes[nextShape][nextRotation].nextPosition2].classList.add(`${shapes[nextShape][nextRotation].name}`)
+    windowCells[nextPosition + shapes[nextShape][nextRotation].nextPosition3].classList.add(`${shapes[nextShape][nextRotation].name}`)
+    windowCells[nextPosition + shapes[nextShape][nextRotation].nextPosition4].classList.add(`${shapes[nextShape][nextRotation].name}`)
   }
   
 
@@ -314,9 +421,11 @@ function init() {
           break
         else if (c === gridWidth) {
           clearRow(r)
+          scoreLine++
+          lineScore.innerHTML = scoreLine
+          totalScore.innerHTML = (scoreLine * 100) 
           moveRowDown(r)
           r-- 
-          
         }
       }
     }
@@ -386,9 +495,13 @@ function init() {
   }
 
   function newShape() {
-    currShape = generateRandomShapeIndex()
-    currRotation = generateRandomRotation()
+    currShape = nextShape
+    currRotation = nextRotation
     currPosition = 5
+    nextShape = generateRandomShapeIndex()
+    nextRotation = generateRandomRotation()
+    windowPosition = shapes[nextShape][nextRotation].nextPosition
+    updateWindow(nextShape, nextRotation, windowPosition)
     tryMove(0)
     shapeCounter++
     console.log('newShape' + shapeCounter)
