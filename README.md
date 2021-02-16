@@ -38,9 +38,13 @@ You can find a live version of the app here:  [Paper Tetris](https://olulesi.git
 * Todoist
 
 ## Getting Started
-The website is accessible through the web browser and does not require installing any dependencies. The game can be played using the keyboard (Arrows and Space bar).
+The website is accessible through the web browser and does not require installing any dependencies. The game can be played using the keyboard (↑ ← → and Space bar).
 
 ## Demonstration of the App Flow 
+
+<p style="text-align:center">
+  <img src="./styles/images/paperTetrisAppFlow.gif" width="400" height="400" />
+<p>
 
 * The app flow is like any normal Tetris game you are to move left to right with the arrow keys 
 * The up arrow key allows you to change the rotation of the shape 
@@ -49,12 +53,19 @@ The website is accessible through the web browser and does not require installin
 
 ## Creating the Game
 ## Plan
+
+<img src="./styles/images/project-1Plan.png"/>
+
+
 For most of my projects prior to GA I used todoist which is a project planning app similar to trello but allows you to add multiple layers of subtasks. 
 
 I broke my project up based on the key components of the tetris game and moved from column to column as I progressed in building the game.
 
 ### Grid
-(the picture of a grid)
+
+<img src="./styles/images/tetrisGrid.png" width="200" height="200" />
+<img src="./styles/images/finalTetrisGrid.png" width="200" height="200" />
+
 The grid was my start point as planned  since this is where all the functionality of the game would be happening. I proceeded to create 2 divs in the html one as the div itself and one as the wrapper.
 
 Grids were made from square divs mapped into a wrapper. 
@@ -168,6 +179,11 @@ function tryMove(change) {
 
 #### Player movment
 
+
+<p style="text-align:center">
+  <img src="styles/images/paperTetrisMovement.gif"/>
+<p>
+
 I then implemented the player movement on the game. I used a switch statement on key up to handle each event. 
 
 For each movement I only needed to keep in track of the current position,  the change, the shape, it’s left and right width and the horizontal position when moving left and right.
@@ -201,6 +217,10 @@ function handleKeyUp(event) {
 
 
 ### Rotations
+
+<p style="text-align:center">
+  <img src="styles/images/paperTetrisRotations (1).gif"/>
+<p>
 
 For the rotations I listed of the possible rotations for each shape including the right and left width 
 
@@ -258,6 +278,10 @@ case 38: // arrow up
 ```
 
 ### Row break 
+
+<p style="text-align:center">
+  <img src="./styles/images/paperTetrisRowBreak.gif" width="400" height="400" />
+<p>
 
 for the row break I had to take into account 
 * multiple lines breaking 
@@ -320,6 +344,10 @@ function completedLines() {
 
 ### SpaceBar Functionality
 
+<p style="text-align:center">
+  <img src="./styles/images/paperTetrisSpaceBar.gif" height="400" />
+<p>
+
 ```
 
   let shapeCounter = 0
@@ -364,6 +392,10 @@ Therefore prompting me to do while loop to consistently try move row by row unti
 
 
 ### Up next Functionality
+
+<p style="text-align:center">
+  <img src="styles/images/paperTetrisUpNext.gif"/>
+<p>
 
 The up next functionality was harder than I expected because I wanted my up next window to be a 4x4 grid which is different dimensions to the game grid. 
 

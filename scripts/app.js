@@ -24,6 +24,7 @@ function init() {
   let nextShape = 0
   let nextRotation = 0
   const bottomRow = []
+  // eslint-disable-next-line no-unused-vars
   let timer
   let windowPosition = 0
   let shapeCounter = 0
