@@ -15,6 +15,8 @@ The aim of the game is to get as many points as possible before the game board i
 
 We were given the freedom to change the theme and alter the concept. I wanted to create a version of tetris that hasn’t been made before so I decided to create a PaPer Tetris game.
 
+You can find a live version of the app here:  [Paper Tetris](https://olulesi.github.io/sei-project-1/) 
+
 
 ## Brief 
 
@@ -35,8 +37,22 @@ We were given the freedom to change the theme and alter the concept. I wanted to
 * Eslint
 * Todoist
 
+## Getting Started
+The website is accessible through the web browser and does not require installing any dependencies. The game can be played using the keyboard (Arrows and Space bar).
+
+## Demonstration of the App Flow 
+
+* The app flow is like any normal Tetris game you are to move left to right with the arrow keys 
+* The up arrow key allows you to change the rotation of the shape 
+* and spacebar key allows you to move the shape to the bottom of the grid.
+* In addition you are able to see an Up next shape as well as the score increasing depending on line breaks
 
 ## Creating the Game
+## Plan
+For most of my projects prior to GA I used todoist which is a project planning app similar to trello but allows you to add multiple layers of subtasks. 
+
+I broke my project up based on the key components of the tetris game and moved from column to column as I progressed in building the game.
+
 ### Grid
 (the picture of a grid)
 The grid was my start point as planned  since this is where all the functionality of the game would be happening. I proceeded to create 2 divs in the html one as the div itself and one as the wrapper.
@@ -437,7 +453,8 @@ Time management: I struggled in managing my time to have enough styling at the e
 I also struggled in finding the most efficient way to generate all the shapes and rotations without writing each position numbers with the left and right width as well as the window position for each rotation of each shape.
 
 
-## If I had More time 
+## Future Features
 I would have liked to add a hold feature to the tetris game to improve it’s functionality. In addition created more of a paper tetris theme with audio and background. 
 
 In addition I would have liked to improve the scoring of the game as well as  storage of high scores with a leaderboard feature.
+
