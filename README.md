@@ -7,8 +7,6 @@ Canvas was forbidden this project and DOM Manipulation was required to get more 
 
 I decided to base my game on Tetris 
 
-Here is a basic description of the game in case you forgot.
-
 Tetris is a puzzle game where the player has to fit different shaped blocks  which can be rotated (called Tetriminos) together so that they make a complete line across the playing board. Once a line is achieved it is removed from the game board and the player’s score is increased.
 
 The aim of the game is to get as many points as possible before the game board is filled with Tetriminos.
@@ -48,8 +46,8 @@ The website is accessible through the web browser and does not require installin
 
 * The app flow is like any normal Tetris game you are to move left to right with the arrow keys 
 * The up arrow key allows you to change the rotation of the shape 
-* and spacebar key allows you to move the shape to the bottom of the grid.
-* In addition you are able to see an Up next shape as well as the score increasing depending on line breaks
+* The spacebar key allows you to move the shape to the bottom of the grid instantaneously.
+* In addition you are able to see the next shape in a window at the top left as well as the score increasing depending on line breaks
 
 ## Creating the Game
 ## Plan
@@ -66,14 +64,13 @@ I broke my project up based on the key components of the tetris game and moved f
 <img src="./styles/images/tetrisGrid.png" width="200" height="200" />
 <img src="./styles/images/finalTetrisGrid.png" width="200" height="200" />
 
-The grid was my start point as planned  since this is where all the functionality of the game would be happening. I proceeded to create 2 divs in the html one as the div itself and one as the wrapper.
+The grid was my start point as planned  since this is where all the functionality of the game would be happening. I proceeded to create 2 divs within each other  in my html file one as the div itself representing each cell and one as the grid itself which is the container of the tetris game.
 
-Grids were made from square divs mapped into a wrapper. 
-my grid dimensions were slightly different as I wanted more of a long rectangle grid shape as my board and not a square so I had the make my grid height twice the height of a grid width.
+My grid dimensions were slightly different as I wanted more of a long rectangle grid shape as my board and not a square so I had the make my grid height twice the height of a grid width.
 
-Each div was labelled as a cell as I needed to keep track of each cell and of all positions in the grid. Therefore I created a for loop to generate the accurate numbers of divs needed to create my specific grid with every cell being pushed into an array. A total of 288 cells for my grid.
+Each div was labelled as a cell as I needed to keep track of all positions in the grid. Therefore I created a for loop to generate the accurate numbers of divs needed to create my tetris grid with every cell being pushed into an array. A total of 288 cells for my grid.
 
-Whilst I was working throughout the project until deployment I would have the text content of each div as its position in order to easily know where index I needed to use for the current position and functionality throughout the project but commented it out when there was no use for it.
+Whilst I was working throughout the project until deployment I would have the text content of each div as its position in order to easily know what index I needed to use for the current position and functionality throughout the project but commented it out when it was ready for presentation.
 
 ```
 function createGrid() {
@@ -103,8 +100,7 @@ For each shape it had to be create based on a single position and the shapes can
 
 I then added the add shape function to uniquely identify each shape on the grid.
 
-I gave a colour for each of the shapes which was determined but currShape and currRotation and added a classlist to each position of the shape relative to the class position by adding them onto the currPosition which was defaulted at the centre of the grid.
-
+I gave a colour for each of the shapes. Each shape generated was determined by currShape and currRotation. Based on the shape provided a classlist of the shape colour would be added to each position of the shape. This would then be displayed starting from the currPosition which starts at the top center of the grid.
 I did this relative to the currPosition because I plan on the current position constantly changing  when the game is played.
 
 
@@ -131,17 +127,17 @@ function addShape() {
 
 To start off I set a time interval method which makes the current shape move consistently down one row.
 
-However in order for the automatic movement to be following the rules which is (once it reaches the bottom of the grid or the lowest possible position it stores and stops moving) it needs to be moving checking if it can   move to the next position with every key press and interval.
+However in order for the automatic movement not to break the game it needs to be moving checking if it can move to the next position with every key press and interval.
 
 Therefore I created a try move function where it
 
 * Has an argument of change to indicate if the currPosition has changed due to key press left or right or rotation change.
-* updates the position of the new to new position which is where it wants to move  to
-* removes the shape of its former position in order to prevent the shape increasing in size
+* updates the current position to the new position which is where it wants to move to
+* removes the shape of its former current position in order to prevent the shape increasing in size
 * then runs a number of if statements to handle the different possible outcomes of the position it is trying to move to.
 	* Such as:
 	* if valid - add shape and keep playing
-	* if no space available - Store the shape and add a new shape from the top
+	* if no space available - Store the shape and add a new shape from the top of the grid
 	* if no possible moves can be made  - disable movement and game will end.
 
 ```
@@ -186,15 +182,16 @@ function tryMove(change) {
 
 I then implemented the player movement on the game. I used a switch statement on key up to handle each event. 
 
-For each movement I only needed to keep in track of the current position,  the change, the shape, it’s left and right width and the horizontal position when moving left and right.
+For each movement I only needed to keep track of the current position,  the change, the shape, it’s left and right width and the horizontal position when moving left and right.
 
 The left and right width for each shape is the width of the number of cells extra from the currPosition on the left and right handside.
+So how many cells does the current shape take on the left and right side of the current postion.
 
-Therefore the number of moves the shape could have to move to the left or right was limited by the right and left width to prevent the shape from going off the grid.
+The number of moves the shape could possible make moving left to right limited by the right and left width to prevent the shape from going off the grid.
 
-The change was important because it tracks the the movement to the left or right as it alters the current position so arrow left would be a change of -1 while right would be a change of 1 with the interval movement of moving down would be the change of 12.
+The change was important because it updates the current positon as the shape moves to the left or right so arrow left would be a change of -1 while right would be a change of 1 with the interval movement of moving down being a change of 12.
 
-similar to the automatic movement the try move function would be called on every key press to make sure the move is valid.
+Similar to the automatic movement the try move function would be called on every key press to make sure the move is valid.
 
 
 ```
@@ -223,10 +220,8 @@ function handleKeyUp(event) {
 <p>
 
 For the rotations I listed of the possible rotations for each shape including the right and left width 
+This was used for making sure the edge of the shape doesn’t go off the grid. 
 
-this was used for making sure the edge of the shape doesn’t go off the grid. Since i was only keeping track of the current position it doest track how long or wide the shape is which is important for knowing when the shape has hit the ground or hit the wall. 
-
-Each shape had a certain number of rotations and I assigned each rotation numbers for each shape position which is relative to the current position for the same reason of it staying in shape wherever it moves.
 
 ```
 {
@@ -262,7 +257,7 @@ Each shape had a certain number of rotations and I assigned each rotation number
 
 #### Moving Rotation keys
 
-For the shape rotation feature I made it the arrow up key. This works because it changes the index of the current rotation so it maps through the rotations array of that shape constantly providing a different rotation.
+For the shape rotation feature I made it the arrow up key. This works because it changes the index of the current rotation mapping through the rotations array of that shape constantly providing a different rotation.
 
 ```
 case 38: // arrow up
@@ -283,12 +278,12 @@ case 38: // arrow up
   <img src="./styles/images/paperTetrisRowBreak.gif" width="400" height="400" />
 <p>
 
-for the row break I had to take into account 
+For the row break I had to take into account 
 * multiple lines breaking 
 * the grid position of all the other shapes adjusting  after the row break
 *  Knowing when a row is completed 
 
-The completed lines required  2 for loops to go through every cell (c) in every row (r) and check if all the cells had a non empty class name as that would indicate a shape is present. Once this is determined I would first clear the row that is filled and move the rows down.
+The completed lines required  2 for loops to go through every cell (c) in every row (r) and to check if all the cells had a non empty class name as that would indicate a shape is present. Once this is determined I would first clear the row that is filled and move the rows down.
 
 For the move rows down function I simply for looped through the rows starting at the  clear row and stopping at the top row. Set each class list name of each cell to the row above it and at the top row clear the cells.
 
@@ -383,12 +378,12 @@ The space bar functionality was an important piece as it is one of the main feat
 I didn’t need to create a function I simply used the shape Counter and the shape Number to handle the functionality.
 
 When every shape is added into the grid the shape counter increases by 1.
-This represents once a shape as stored so can no longer move.
+This represents a shape being stored meaing it can no longer move.
 
 For the space bar we want the shape to continuously go down to the lowest possible point.
 
-So that can be done with the try move function checking row by row 
-Therefore prompting me to do while loop to consistently try move row by row until another shape if added which will mean the shape counter and shape number will be different.
+So that can be done with the try move function checking row by row.
+Therefore prompting me to do while loop to consistently try move row by row until another shape is added which will mean the shape counter and shape number will be different.
 
 
 ### Up next Functionality
@@ -397,7 +392,7 @@ Therefore prompting me to do while loop to consistently try move row by row unti
   <img src="styles/images/paperTetrisUpNext.gif"/>
 <p>
 
-The up next functionality was harder than I expected because I wanted my up next window to be a 4x4 grid which is different dimensions to the game grid. 
+The up next functionality was harder than I expected because I wanted my up next window to be a 4x4 grid which is different dimensions to the 12x24 game grid. 
 
 
 ```
@@ -456,9 +451,9 @@ function updateWindow(nextShape, nextRotation, nextPosition) {
 
 ```
 
-Then I moved onto the new shape function which adds a new shape directly into the main grid. So I assign the main grid  current shape index to what the window shape grid is. Therefore linking the the to grids meaning the game grid gets all its shapes from the window grid. 
+Then I moved onto the new shape function which adds a new shape directly into the main grid. So I assign the main grid the shape of what the window shape grid is. Therefore linking the  two to grids meaning the game grid gets all its shapes from the window grid. 
 
-Then update the window grid to change once this has happened.
+Then update the window grid to change once this has happened with random generators to select the next shape.
 
 ```
 function newShape() {
@@ -477,10 +472,10 @@ function newShape() {
 ```
 
 ## Wins 
-Completing the project on time was a big win. The shape rotations functionality as well as the space bar functionality were also big wins as they were the features in struggled in finding the best way to handle it. 
+Completing the project on time was a big win. The shape rotations functionality as well as the space bar functionality were also big wins as they were the features in struggled in implementing in an efficient way. 
 
 ## Challenges
-Time management: I struggled in managing my time to have enough styling at the end and my project suffered because of it. In addition I would of wanted to improve the scoring system, 
+Time management: I struggled in managing my time to have enough styling at the end and my project suffered because of it. In addition I would of wanted to improve the scoring system. 
 
 I also struggled in finding the most efficient way to generate all the shapes and rotations without writing each position numbers with the left and right width as well as the window position for each rotation of each shape.
 
